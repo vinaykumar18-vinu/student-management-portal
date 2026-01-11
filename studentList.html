@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student List | EduSync Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-grad: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            --bg-body: #f8fafc;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --white: #ffffff;
+            --transition: all 0.3s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        body { 
+            background-color: var(--bg-body); 
+            color: var(--text-main); 
+            padding: 30px; 
+            min-height: 100vh;
+        }
+
+        /* --- HEADER (100% WIDTH) --- */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        .header-info h2 { font-size: 1.8rem; font-weight: 800; color: #0f172a; }
+
+        /* --- TABLE CONTAINER (100% WIDTH) --- */
+        .table-container {
+            width: 100%;
+            background: var(--white);
+            border-radius: 20px;
+            padding: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            border: 1px solid #e2e8f0;
+            overflow-x: auto; /* Ensures responsiveness on smaller screens */
+        }
+
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            min-width: 900px; /* Prevents squishing on small windows */
+        }
+
+        th { 
+            padding: 20px; 
+            text-align: left;
+            text-transform: uppercase; 
+            font-size: 0.7rem; 
+            font-weight: 800; 
+            color: var(--text-muted); 
+            letter-spacing: 1px;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        /* Column Proportions */
+        th:nth-child(1) { width: 25%; } /* Student */
+        th:nth-child(2) { width: 25%; } /* Email */
+        th:nth-child(3) { width: 10%; } /* Age */
+        th:nth-child(4) { width: 20%; } /* Course */
+        th:nth-child(5) { width: 20%; text-align: right; } /* Actions */
+
+        tbody tr { 
+            transition: var(--transition); 
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        tbody tr:last-child { border-bottom: none; }
+        tbody tr:hover { background: #f8faff; }
+
+        td { 
+            padding: 16px 20px; 
+            vertical-align: middle; 
+        }
+
+        /* Student Cell */
+        .student-cell { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+        }
+
+        .avatar {
+            width: 42px; height: 42px; 
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; color: white; flex-shrink: 0;
+            background: var(--primary-grad);
+        }
+
+        .student-name { font-weight: 700; color: #1e293b; font-size: 1rem; }
+
+        /* Course Badge */
+        .badge {
+            padding: 6px 14px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: inline-block;
+        }
+        .badge-cs { background: #e0e7ff; color: #4338ca; }
+        .badge-design { background: #fef3c7; color: #92400e; }
+
+        /* --- CREATIVE ACTION BUTTONS --- */
+        .action-container {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .btn-action {
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        /* Edit Button Style */
+        .edit-btn {
+            background: #eff6ff;
+            color: #2563eb;
+            border: 1px solid #dbeafe;
+        }
+
+        .edit-btn:hover {
+            background: #2563eb;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Delete Button Style */
+        .delete-btn {
+            background: #fff1f2;
+            color: #e11d48;
+            border: 1px solid #ffe4e6;
+        }
+
+        .delete-btn:hover {
+            background: #e11d48;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Global Add Button */
+        .btn-add {
+            background: var(--primary-grad);
+            color: white;
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 15px rgba(99, 102, 241, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-header">
+        <div class="header-info">
+            <h2>Student Directory</h2>
+            <p>Viewing all active enrollments</p>
+        </div>
+        <button class="btn-add">
+            <a href="./addnewstudent.html"><i class="fa-solid fa-plus"></i> Add New Student</a>
+        </button>
+    </div>
+
+    
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Email Address</th>
+                    <th>Age</th>
+                    <th>Enrolled Course</th>
+                    <th style="text-align: right;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="student-cell">
+                            <div class="avatar">JD</div>
+                            <span class="student-name">Johnathan Doe</span>
+                        </div>
+                    </td>
+                    <td style="color: var(--text-muted);">john.doe@university.com</td>
+                    <td><b>21</b></td>
+                    <td><span class="badge badge-cs">Computer Science</span></td>
+                    <td>
+                        <div class="action-container">
+                            <a href="./editstudent.html" class="btn-action edit-btn">
+                                <i class="fa-solid fa-pen"></i> Edit
+                            </a>
+                            <a href="./deletestudent.html" class="btn-action delete-btn">
+                                <i class="fa-solid fa-trash"></i> Delete
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="student-cell">
+                            <div class="avatar" style="background: #f59e0b;">AS</div>
+                            <span class="student-name">Alice Smith</span>
+                        </div>
+                    </td>
+                    <td style="color: var(--text-muted);">alice.s@design.com</td>
+                    <td><b>22</b></td>
+                    <td><span class="badge badge-design">Visual Arts</span></td>
+                    <td>
+                        <div class="action-container">
+                            <a href="./editstudent.html" class="btn-action edit-btn">
+                                <i class="fa-solid fa-pen"></i> Edit
+                            </a>
+                            <a href="/deletestudent.html" class="btn-action delete-btn">
+                                <i class="fa-solid fa-trash"></i> Delete
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

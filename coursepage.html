@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Studio | EduSync</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #6366f1;
+            --bg-body: #f8fafc;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        body { 
+            background-color: var(--bg-body); 
+            padding: 40px; 
+            color: #1e293b;
+        }
+
+        /* --- HEADER --- */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 50px;
+        }
+
+        .header-info h2 { font-size: 2.2rem; font-weight: 800; letter-spacing: -1px; }
+        .header-info p { color: #64748b; margin-top: 5px; }
+
+        .btn-add-glass {
+            background: var(--primary);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 18px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2);
+        }
+
+        .btn-add-glass:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(99, 102, 241, 0.4);
+        }
+
+        /* --- COURSE GRID --- */
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            width: 100%;
+        }
+
+        /* --- CREATIVE CARD DESIGN --- */
+        .course-card {
+            background: white;
+            border-radius: 28px;
+            padding: 30px;
+            position: relative;
+            transition: var(--transition);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        /* The Animated Glow Background */
+        .course-card::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.05) 0%, transparent 70%);
+            transition: var(--transition);
+            opacity: 0;
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 30px 60px -12px rgba(99, 102, 241, 0.12);
+        }
+
+        .course-card:hover::before { opacity: 1; }
+
+        /* Icon Styling */
+        .card-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+            margin-bottom: 20px;
+            transition: var(--transition);
+            z-index: 2;
+        }
+
+        .course-card:hover .card-icon {
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        .course-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 8px;
+            z-index: 2;
+        }
+
+        .student-count {
+            font-size: 0.85rem;
+            color: #64748b;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        /* Delete Floating Action */
+        .card-delete {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 35px;
+            height: 35px;
+            border-radius: 10px;
+            background: #f8fafc;
+            color: #94a3b8;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+            opacity: 0; /* Hidden until hover */
+            z-index: 10;
+        }
+
+        .course-card:hover .card-delete {
+            opacity: 1;
+        }
+
+        .card-delete:hover {
+            background: #fee2e2;
+            color: #ef4444;
+            transform: scale(1.1);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="page-header">
+        <div class="header-info">
+            <h2>Course Library</h2>
+            <p>Explore and manage academic pathways.</p>
+        </div>
+        <button class="btn-add-glass">
+            <i class="fa-solid fa-plus-circle"></i> New Program
+        </button>
+    </div>
+
+    <div class="course-grid">
+        <div class="course-card">
+            <button class="card-delete"><i class="fa-solid fa-trash-can"></i></button>
+            <div class="card-icon" style="background: linear-gradient(135deg, #6366f1, #a855f7);">
+                <i class="fa-solid fa-code"></i>
+            </div>
+            <h3 class="course-title">Computer Science</h3>
+            <span class="student-count">412 Enrolled Students</span>
+        </div>
+
+        <div class="course-card">
+            <button class="card-delete"><i class="fa-solid fa-trash-can"></i></button>
+            <div class="card-icon" style="background: linear-gradient(135deg, #f43f5e, #fb923c);">
+                <i class="fa-solid fa-bezier-curve"></i>
+            </div>
+            <h3 class="course-title">Graphic Design</h3>
+            <span class="student-count">256 Enrolled Students</span>
+        </div>
+
+        <div class="course-card">
+            <button class="card-delete"><i class="fa-solid fa-trash-can"></i></button>
+            <div class="card-icon" style="background: linear-gradient(135deg, #10b981, #3b82f6);">
+                <i class="fa-solid fa-flask"></i>
+            </div>
+            <h3 class="course-title">Biotechnology</h3>
+            <span class="student-count">189 Enrolled Students</span>
+        </div>
+
+        <div class="course-card">
+            <button class="card-delete"><i class="fa-solid fa-trash-can"></i></button>
+            <div class="card-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                <i class="fa-solid fa-chart-pie"></i>
+            </div>
+            <h3 class="course-title">Business Studio</h3>
+            <span class="student-count">567 Enrolled Students</span>
+        </div>
+    </div>
+
+</body>
+</html>

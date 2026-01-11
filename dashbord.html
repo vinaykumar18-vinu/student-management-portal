@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System | Learning Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #10b981;
+            --bg-body: #f8fafc;
+            --sidebar-dark: #0f172a;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --glass-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        body {
+            background-color: var(--bg-body);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+            color: var(--text-main);
+        }
+
+        /* --- SIDEBAR ENHANCEMENTS --- */
+        .sidebar {
+            width: 280px;
+            background-color: var(--sidebar-dark);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            padding: 30px 20px;
+            z-index: 10;
+        }
+
+        .sidebar-brand {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            background: linear-gradient(to right, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .menu-item {
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            color: #94a3b8;
+            text-decoration: none;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        /* Unique Hover Effect: Sliding Glow */
+        .menu-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            padding-left: 25px; /* Magnetic slide effect */
+        }
+
+        .menu-item.active {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 10px 20px -5px rgba(99, 102, 241, 0.5);
+        }
+
+        .menu-item i { transition: var(--transition); }
+        .menu-item:hover i { transform: scale(1.2) rotate(-10deg); color: #818cf8; }
+
+        /* --- MAIN CONTENT & TOP NAV --- */
+        .main-wrapper { flex-grow: 1; overflow-y: auto; padding: 0 40px 40px; }
+
+        .top-nav {
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* Modern Search Bar */
+        .search-box {
+            background: #fff;
+            border-radius: 15px;
+            padding: 8px 15px;
+            display: flex;
+            align-items: center;
+            width: 300px;
+            box-shadow: var(--glass-shadow);
+        }
+        .search-box input { border: none; outline: none; padding-left: 10px; width: 100%; }
+
+        /* --- DASHBOARD ATTRACTIVE ELEMENTS --- */
+        .welcome-section { margin-bottom: 35px; position: relative; }
+
+        /* Live Status Dot */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            background: #dcfce7;
+            color: #166534;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+        .dot { height: 8px; width: 8px; background: #22c55e; border-radius: 50%; margin-right: 8px; animation: pulse 2s infinite; }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        /* Shiny Card Effect */
+        .card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: var(--glass-shadow);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.6), transparent);
+            transform: skewX(-25deg);
+            transition: 0.7s;
+        }
+
+        .card:hover::after { left: 150%; }
+
+        .card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 30px 45px -10px rgba(0,0,0,0.1);
+        }
+
+        /* Quick Action Floating Button */
+        .fab {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            background: var(--primary);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .fab:hover { transform: rotate(90deg) scale(1.1); }
+
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <i class="fa-solid fa-graduation-cap"></i> EduSync Pro
+        </div>
+        <nav>
+            <a href="#" class="menu-item active"><i class="fa-solid fa-house"></i> Dashboard</a>
+            <a href="./studentList.html" class="menu-item"><i class="fa-solid fa-user-graduate"></i> Students</a>
+            <a href="./coursepage02.html" class="menu-item"><i class="fa-solid fa-book-open"></i> Courses</a>
+            <a href="#" class="menu-item" style="margin-top: 50px; color: #f87171;"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
+        </nav>
+    </aside>
+
+    <main class="main-wrapper">
+        <header class="top-nav">
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass" style="color: #94a3b8;"></i>
+                <input type="text" placeholder="Search students, grades...">
+            </div>
+            <div class="user-pill" style="background: white; padding: 8px 16px; border-radius: 50px; box-shadow: var(--glass-shadow); font-weight: 600;">
+                <img src="https://ui-avatars.com/api/?name=Professor+Smith&background=6366f1&color=fff" style="width: 25px; border-radius: 50%; margin-right: 10px; vertical-align: middle;">
+                Hello, Prof. Smith
+            </div>
+        </header>
+
+        <section class="welcome-section">
+            <h1>Welcome back! ✨</h1>
+            <p>Your academic overview is looking great today.</p>
+            <div class="status-badge"><span class="dot"></span> System Live: Semester 2</div>
+        </section>
+
+        <div class="card-container">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-label" style="color: var(--text-muted); font-weight: 700; font-size: 0.8rem; text-transform: uppercase;">Total Enrollment</span>
+                    <div class="card-value" style="font-size: 2.8rem; font-weight: 800; margin: 10px 0;">1,245 <span class="card-badge badge-up" style="font-size: 0.9rem; color: var(--secondary);">+12%</span></div>
+                    <div style="width: 100%; background: #f1f5f9; height: 8px; border-radius: 10px; margin-top: 15px;">
+                        <div style="width: 75%; background: var(--primary); height: 100%; border-radius: 10px;"></div>
+                    </div>
+                </div>
+                <div class="card-icon-box" style="position: absolute; bottom: 20px; right: 20px; font-size: 3rem; opacity: 0.1;"><i class="fa-solid fa-users"></i></div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-label" style="color: var(--text-muted); font-weight: 700; font-size: 0.8rem; text-transform: uppercase;">Active Courses</span>
+                    <div class="card-value" style="font-size: 2.8rem; font-weight: 800; margin: 10px 0;">42</div>
+                    <p style="color: var(--secondary); font-size: 0.85rem; font-weight: 600;"><i class="fa-solid fa-circle-check"></i> All systems operational</p>
+                </div>
+                <div class="card-icon-box" style="position: absolute; bottom: 20px; right: 20px; font-size: 3rem; opacity: 0.1;"><i class="fa-solid fa-book-open-reader"></i></div>
+            </div>
+        </div>
+    </main>
+
+    <div class="fab" title="Quick Add">
+        <i class="fa-solid fa-plus"></i>
+    </div>
+
+</body>
+</html>

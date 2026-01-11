@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Deletion | EduSync</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --danger-grad: linear-gradient(135deg, #e11d48 0%, #fb7185 100%);
+            --bg-overlay: rgba(15, 23, 42, 0.7);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        body { 
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+        }
+
+        /* --- MODAL OVERLAY --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-overlay);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        /* --- MODAL BOX --- */
+        .modal-card {
+            background: white;
+            width: 90%;
+            max-width: 420px;
+            padding: 40px;
+            border-radius: 32px;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            animation: modalPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        @keyframes modalPop {
+            from { opacity: 0; transform: scale(0.8) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        /* --- CREATIVE WARNING ICON --- */
+        .warning-icon-wrapper {
+            width: 80px;
+            height: 80px;
+            background: #fff1f2;
+            border-radius: 50%;
+            margin: 0 auto 25px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .warning-icon-wrapper i {
+            font-size: 2rem;
+            color: #e11d48;
+            z-index: 2;
+        }
+
+        /* The Pulse Effect */
+        .warning-icon-wrapper::after {
+            content: '';
+            position: absolute;
+            width: 100%; height: 100%;
+            border-radius: 50%;
+            border: 2px solid #fda4af;
+            animation: pulseWarning 2s infinite;
+        }
+
+        @keyframes pulseWarning {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.6); opacity: 0; }
+        }
+
+        /* --- TYPOGRAPHY --- */
+        .modal-card h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 12px;
+        }
+
+        .modal-card p {
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+
+        .student-to-delete {
+            color: #1e293b;
+            font-weight: 700;
+            background: #f1f5f9;
+            padding: 2px 8px;
+            border-radius: 6px;
+        }
+
+        /* --- BUTTONS --- */
+        .modal-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 16px;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            width: 100%;
+        }
+
+        .btn-delete {
+            background: var(--danger-grad);
+            color: white;
+            box-shadow: 0 10px 20px rgba(225, 29, 72, 0.3);
+        }
+
+        .btn-delete:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 25px rgba(225, 29, 72, 0.4);
+        }
+
+        .btn-cancel {
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        .btn-cancel:hover {
+            background: #e2e8f0;
+            color: #1e293b;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="modal-overlay">
+        <div class="modal-card">
+            <div class="warning-icon-wrapper">
+                <i class="fa-solid fa-trash-can"></i>
+            </div>
+
+            <h2>Confirm Deletion</h2>
+            <p>Are you sure you want to remove <span class="student-to-delete">Johnathan Doe</span> from the database? This action cannot be undone.</p>
+
+            <div class="modal-actions">
+                <button class="btn btn-delete">Yes, Delete Student</button>
+                <button class="btn btn-cancel">Cancel, Keep Profile</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
